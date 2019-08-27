@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  kafkacluster1:
+    image: kafkacluster
+    container_name: kafka-node1
+    environment:
+        BROKER_ID: 1
+        ZOOKEEPER_CLUSTER: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+    ports:
+        - 9092:9092
+    networks:
+        - zookeeper
+  kafkacluster2:
+    image: kafkacluster
+    container_name: kafka-node2
+    environment:
+        BROKER_ID: 2
+        ZOOKEEPER_CLUSTER: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+    ports:
+        - 9093:9092
+    networks:
+        - zookeeper
+  kafkacluster3:
+    image: kafkacluster
+    container_name: kafka-node3
+    environment:
+        BROKER_ID: 3
+        ZOOKEEPER_CLUSTER: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+    ports:
+        - 9094:9092
+    networks:
+        - zookeeper
+
+
+networks:
+    zookeeper:
+        external:
+            name: zookeeper
